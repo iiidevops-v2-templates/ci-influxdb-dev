@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+      - name: harbor-local
+      containers:
+        - image: influxdb:2.5.1
+          name: influx
+          ports:
+            - containerPort: 8086
