@@ -6,7 +6,7 @@ stages:
 - test
 include:
 - project: iiidevops-templates/ci-template
-  ref: v2.5.5
+  ref: v2.6.0
   file: ci/template.gitlab-ci.yml
 Deploy--InfluxDB:
   stage: deploy
@@ -16,7 +16,7 @@ Deploy--InfluxDB:
   - envsubst < k8s/kustomization.yaml.tmp >  k8s/kustomization.yaml
   - kubectl kustomize k8s/ | kubectl apply -f -
   only:
-  - develop
+  - master
 Deploy--Wait InfluxDB:
   stage: deploy
   image:
@@ -33,7 +33,7 @@ Deploy--Wait InfluxDB:
   script:
   - deploy-wait.pl
   only:
-  - develop
+  - master
   except:
     variables:
     - $CI_COMMIT_MESSAGE =~ /.*\(store\)$/
